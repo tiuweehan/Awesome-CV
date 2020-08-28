@@ -21,7 +21,7 @@
 \documentclass[11pt, a4paper]{awesome-cv}
 
 % Configure page margins with geometry
-\geometry{left=1.4cm, top=.8cm, right=1.4cm, bottom=1.8cm, footskip=.5cm}
+\geometry{left=1.4cm, top=.5cm, right=1.4cm, bottom=0.8cm, footskip=0cm}
 
 % Specify the location of the included fonts
 \fontdir[fonts/]
@@ -31,7 +31,7 @@
 %                 awesome-nephritis, awesome-concrete, awesome-darknight
 \colorlet{awesome}{awesome-red}
 % Uncomment if you would like to specify your own color
-% \definecolor{awesome}{HTML}{CA63A8}
+\definecolor{awesome}{HTML}{DD3D2A}
 
 % Colors for text
 % Uncomment if you would like to specify your own color
@@ -42,6 +42,14 @@
 
 % Set false if you don't want to highlight section with awesome color
 \setbool{acvSectionColorHighlight}{true}
+
+% Set false if you don't want to include address
+\newbool{includeAddress}
+\setbool{includeAddress}{false}
+
+% Set false if you don't want to include phone number
+\newbool{includePhoneNumber}
+\setbool{includePhoneNumber}{true}
 
 % If you would like to change the social information separator from a pipe (|) to something else
 \renewcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
@@ -54,10 +62,12 @@
 % Available options: circle|rectangle,edge/noedge,left/right
 % \photo[rectangle,edge,right]{./examples/profile}
 \name{Wee Han}{Tiu}
-\position{Software Architect{\enskip\cdotp\enskip}Security Expert}
-\address{475 River Valley Road \#13-06 Singapore 248360}
+\position{Computer Science Student}
+\ifbool{includeAddress}{
+  \address{475 River Valley Road \#13-06 Singapore 248360}
+}{}
 
-\mobile{(+65) 85331217}
+\ifbool{includePhoneNumber}{\mobile{(+65) 85331217}}{}
 \email{contact@tiuweehan.com}
 \homepage{tiuweehan.com}
 \github{tiuweehan}
@@ -83,22 +93,19 @@
 % Print the footer with 3 arguments(<left>, <center>, <right>)
 % Leave any of these blank if they are not needed
 \makecvfooter
-  {\today}
-  {Tiu Wee Han~~~·~~~Résumé}
-  {\thepage}
+  {}
+  {}
+  {}
 
 
 %-------------------------------------------------------------------------------
 %	CV/RESUME CONTENT
 %	Each section is imported separately, open each file in turn to modify content
 %-------------------------------------------------------------------------------
-\input{resume/contents/summary.tex}
-\input{resume/contents/experience.tex}
-\input{resume/contents/honors.tex}
-\input{resume/contents/presentation.tex}
-\input{resume/contents/writing.tex}
-\input{resume/contents/committees.tex}
+\input{resume/contents/skills.tex}
 \input{resume/contents/education.tex}
+\input{resume/contents/experience.tex}
+\input{resume/contents/projects.tex}
 \input{resume/contents/extracurricular.tex}
 
 %-------------------------------------------------------------------------------

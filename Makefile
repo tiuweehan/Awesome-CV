@@ -1,22 +1,20 @@
 .PHONY: examples
 
 CC = xelatex
-EXAMPLES_DIR = examples
-RESUME_DIR = examples/resume
-CV_DIR = examples/cv
-RESUME_SRCS = $(shell find $(RESUME_DIR) -name '*.tex')
-CV_SRCS = $(shell find $(CV_DIR) -name '*.tex')
 
-examples: $(foreach x, coverletter cv resume, $x.pdf)
+RESUME_BASE_DIR = resume
+RESUME_CONTENTS_DIR = resume/contents
+RESUME_SRCS = $(shell find $(RESUME_CONTENTS_DIR) -name '*.tex')
 
-resume.pdf: $(EXAMPLES_DIR)/resume.tex $(RESUME_SRCS)
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+OUTPUT_DIR = output
 
-cv.pdf: $(EXAMPLES_DIR)/cv.tex $(CV_SRCS)
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+build: $(foreach x, coverletter cv resume, $x.pdf)
 
-coverletter.pdf: $(EXAMPLES_DIR)/coverletter.tex
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+docker-resume:
+	docker run --rm -v $(shell pwd):/data vipintm/xelatex make resume.pdf
+
+resume.pdf: $(RESUME_BASE_DIR)/resume.tex $(RESUME_SRCS)
+	$(CC) -output-directory=$(OUTPUT_DIR) $<
 
 clean:
-	rm -rf $(EXAMPLES_DIR)/*.pdf
+	rm -rf $(OUTPUT_DIR)/*.pdf
